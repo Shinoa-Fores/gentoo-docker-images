@@ -8,10 +8,9 @@ A collection of Dockerfiles for generating Gentoo docker images.
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="css/main.css" type="text/css" />
-<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="stylesheet" href="http://btcinfo.sdf.org/blog/css/main.css" type="text/css" />
+<link rel="stylesheet" href="http://btcinfo.sdf.org/blog/css/blog.css" type="text/css" />
 <link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
-<title>Docker gentoo env recipe</title>
 </head><body>
 <div id="divbodyholder">
 <div class="headerholder"><div class="header">
