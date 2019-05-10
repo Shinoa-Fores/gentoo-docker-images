@@ -4,48 +4,76 @@
 
 A collection of Dockerfiles for generating Gentoo docker images.
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
-<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="http://btcinfo.sdf.org/blog/css/main.css" type="text/css" />
-<link rel="stylesheet" href="http://btcinfo.sdf.org/blog/css/blog.css" type="text/css" />
-<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
-</head><body>
-<div id="divbodyholder">
-<div class="headerholder"><div class="header">
-<div id="title">
-<h1 class="nomargin"><a class="ablack" href="http://btcinfo.sdf.org/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=http://btcinfo.sdf.org/blog/media/img/avatar.png align=right></img></h1>
-</div></div></div>
-<div id="divbody"><div class="content">
-<!-- entry begin -->
-<h3><a class="ablack" href="docker-gentoo-env-recipe.html">
-Docker gentoo env recipe
-</a></h3>
-<!-- text begin -->
+These images are intended to be created automatically by
+a travis cron job and pushed to [docker hub](https://hub.docker.com/u/gentoo/).
+This repository include basic stage3 images and an image usable as a `/usr/portage` volume
 
-<p>This page is just a note on reliable ways to get a working gentoo environment using Dockerfiles. Useful mainly for making decent working shell that you don't care about for testing things. :)</p>
-<p>The recipe can also easily be modified to use own stage3 and not be reliant on dockerhub.</p>
+# DockerHub
 
-<p><pre><blockquote>docker pull btcinfo/stage3-amd64:latest
-docker run -it btcinfo/stage3-amd64:latest</blockquote></pre></p>
+https://hub.docker.com/u/gentoo/
 
-<p>This gives you a root shell</p>
-<p><pre><blockquote><b>37b0f185b13d ~ #</b></blockquote></pre></p>
+## Inventory
 
-<p>Populate the portage tree with the <a href="http://distfiles.gentoo.org/snapshots/portage-latest.tar.xz">latest official portage snapshot</a>, or use your own archived snapshot.</p>
-<p><pre><blockquote>cd usr/
-wget -c http://distfiles.gentoo.org/snapshots/portage-latest.tar.xz
-tar xvf portage-latest.tar.xz</blockquote></pre></p>
+* portage
+* stage3
+  * stage3-amd64
+    * stage3-amd64-hardened
+    * stage3-amd64-nomultilib
+    * stage3-amd64-hardened-nomultilib
+  * stage3-x86
+    * stage3-x86-hardened
 
-<p>You can now emerge the packages you need and build from sources. Do what thou will.</p>
+# Building the containers
+
+The containers are created using a multi-stage build, which requires docker-17.05.0 or later.
+The container being built is defined by the TARGET environment variable:
+
+`` TARGET=stage3-amd64 ./build.sh ``
+
+# Using the portage container as a data volume
+
+```
+docker create -v /usr/portage --name myportagesnapshot gentoo/portage:latest /bin/true
+docker run --volumes-from myportagesnapshot gentoo/stage3-amd64:latest /bin/bash
+```
+
+# Using the portage container in a multi-stage build
+
+docker-17.05.0 or later supports multi-stage builds, allowing the portage volume to be used when creating images based on a stage3 image.
+
+Example _Dockerfile_
+
+```
+# name the portage image
+FROM gentoo/portage:latest as portage
+
+# image is based on stage3-amd64
+FROM gentoo/stage3-amd64:latest
+
+# copy the entire portage volume in
+COPY --from=portage /usr/portage /usr/portage
+
+# continue with image build ...
+RUN emerge -qv www-servers/apache # or whichever packages you need
+```
 
 
-<!-- text end -->
-<!-- entry end -->
-</div>
-<div id="footer"> <a href="http://btcinfo.sdf.org/">shinohai</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> - <a href=https://blockstream.info/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6> Bitcoin: 
-1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a><br/>
-<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
-</div></div>
-</body></html>
+# Contributing
+
+We'd love to hear any ideas.  Feel free to contact us via any of the following
+methods:
+
+* IRC: irc://freenode.net/#gentoo-containers
+* EMAIL: gentoo-containers@lists.gentoo.org
+* GITHUB: https://github.com/gentoo/gentoo-docker-images
+
+## Policy
+
+* Use topic branches (i.e. foo) and fix branches (i.e. fix/foo) when submitting
+  pull requests
+* Make meaningful commits ideally with the following form:
+  * Subject line–what this commit does
+  * Blank line
+  * Body–why this commit is necessary or desired
+* Pull requests should not include merge commits
+* Use amend and rebase to fix commits after a pull request has been submitted
