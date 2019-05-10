@@ -22,10 +22,6 @@ A collection of Dockerfiles for generating Gentoo docker images.
 <h3><a class="ablack" href="docker-gentoo-env-recipe.html">
 Docker gentoo env recipe
 </a></h3>
-<!-- blog_timestamp: #201905101659.12# -->
-<div class="subtitle">May 10, 2019 &mdash; 
-shinohai
-</div>
 <!-- text begin -->
 
 <p>This page is just a note on reliable ways to get a working gentoo environment using Dockerfiles. Useful mainly for making decent working shell that you don't care about for testing things. :)</p>
