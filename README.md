@@ -40,7 +40,6 @@ tar xvf portage-latest.tar.xz</blockquote></pre></p>
 
 <p>You can now emerge the packages you need and build from sources. Do what thou will.</p>
 
-<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a></p>
 
 <!-- text end -->
 <!-- entry end -->
@@ -48,6 +47,5 @@ tar xvf portage-latest.tar.xz</blockquote></pre></p>
 <div id="footer"> <a href="http://btcinfo.sdf.org/">shinohai</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> - <a href=https://blockstream.info/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6> Bitcoin: 
 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a><br/>
 <p><center><i>This page was generated using bash, sed, and awk</i></center></p>
-<p><center><img src=media/img/netbsd.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
 </div></div>
 </body></html>
