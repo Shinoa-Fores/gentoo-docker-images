@@ -16,7 +16,6 @@ A collection of Dockerfiles for generating Gentoo docker images.
 <div class="headerholder"><div class="header">
 <div id="title">
 <h1 class="nomargin"><a class="ablack" href="http://btcinfo.sdf.org/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=http://btcinfo.sdf.org/blog/media/img/avatar.png align=right></img></h1>
-<div id="description">Hic inserere motto</div>
 </div></div></div>
 <div id="divbody"><div class="content">
 <!-- entry begin -->
